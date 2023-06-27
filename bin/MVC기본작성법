@@ -1,0 +1,42 @@
+  1. MVC 기본
+  - MVC란
+  	- Model, View, Controller 약자로 고객의 요구에 맞춰 설계하는 단계
+  		- Model			: 각서비스에 맞는 로직함수를 생성하는 부분
+  		- View			: API 문서화를 통해 어떤 요청이 있을지 정리하는 부분
+  		- Controller	: 사용자의 모든 요청을 받는 부분
+  		
+  	- MVC 작성 순서
+  		- 요구사항정리
+  		- UseCase 작성
+  		- 요구사항속 CRUD 작성
+  		- ERD 만들기
+  		- ERD로 클래스 다이어그램 작성
+  		- API 문서화
+  		- MVC패턴 적용
+  		
+  	- Dao
+  		- 사용자의 요구 사항을 처리하는 영역이며, DBTable을 참고하는 클래스
+  		
+  	- Dto
+  		- DB에 연결하는 영역이며, 왠만해서는 바뀌지 않는다
+  		
+  	- Controller
+  		- 사용자로부터 받은 요구사항을 받아 서브컨틀롤러에 전달하여  Uri, ServiceNo, Param 값을 전달받는다
+  			- 0 : 사전 요구사항관련 초기화
+  				  서버프로그램이 실행되면서 FrontController객체가 생성되고
+  				  init()함수 호출을 통해서 요구 Uri 와 서브컨트롤러를 map에 저장
+  			
+  			- 1	: 사용자(View,tui/gui) 로부터 요구 Uri, ServiceNo, Param를 FC execute에서 전달받는다
+  			- 2	: 요구 Uri에 해당되는 서브컨트롤러를 꺼내서 execute(ServiceNo,Param)을 실행한다
+  			- 3 : 서브컨트롤러에서는 ServiceNo별로 각 서비스에 해당되는 작업을 수행한다
+  				- 1) 파라미터 받기
+  				- 2) 입력값 검증(Data Validation Check)
+  				- 3) 서비스 실행
+  				- 4) View로 전달
+  					
+  	- Service
+  		- Controller 에서 요청받아 DB에서 요청 받은 값을 리턴 해준다
+  		
+  		Service CRUD(-DaoCRUD) + 서비스형로직(권한확인,시스템 로직)
+  		
+  		

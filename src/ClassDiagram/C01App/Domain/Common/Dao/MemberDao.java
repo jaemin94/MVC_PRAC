@@ -109,10 +109,10 @@ public class MemberDao {
 					dto.setPw(rs.getString("pw"));
 					dto.setUsername(rs.getString("username"));
 					dto.setRole(rs.getString("role"));
-					rs.close();
+					
 					
 				}
-				
+				rs.close();
 				pstmt.close();
 			}
 		}
