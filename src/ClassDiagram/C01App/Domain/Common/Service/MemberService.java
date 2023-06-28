@@ -17,9 +17,18 @@ public class MemberService {
 	
 	private MemberDao dao;
 	
-	public MemberService()
+	private static MemberService instance;
+	public static MemberService getInstance()
 	{
-		dao = new MemberDao();
+		if(instance == null)
+			instance =new MemberService();
+		return instance;
+		
+	}
+	
+	private MemberService()
+	{
+		dao = MemberDao.getInstance();
 		sessionMap = new HashMap();
 	}
 	
@@ -35,40 +44,60 @@ public class MemberService {
 	}
 	
 	// 회원 조회하기(전체 조회하기)
-	public List<MemberDto> memberSearch() throws Exception
+	public List<MemberDto> memberSearch(String sid) throws Exception
 	{
+		String role = this.getRole(sid);
 		
-		System.out.println("MemberService's memberSearch()");
-		return dao.select();
+		if(role.equals("Role_Member"))
+		{
+			return dao.select();
+		}
+		return null;
+	}
+	
+	public MemberDto memberSearchOne(String role,String id) throws Exception
+	{
+		if(role.equals("Role_Member"))
+		{
+			return dao.select(id);
+		}
+		return null;
 	}
 	
 	// 회원 조회하기(한 회원)
-	public MemberDto memberSearch(String id) throws Exception
+	public MemberDto memberSearch(String id,String sid) throws Exception
 	{
-		System.out.println("MemberService's memberSearch(String id)");
-		return dao.select(id);
-		
+		Session session = sessionMap.get(sid);
+		if(session != null && session.getId().equals(id))
+		{
+			return dao.select(id);
+		}
+		return null;
 	}
 	
 	// 회원 수정하기
-	public boolean memberUpdate(MemberDto dto) throws Exception
+	public boolean memberUpdate(MemberDto dto, String sid) throws Exception
 	{
-		System.out.println("MemberService's memberUpdate()");
-		int result = dao.update(dto);
-		if(result > 0)
+		Session session = sessionMap.get(sid);
+		if(session != null && session.getId().equals(dto.getId()))
+		{
+			int result = dao.update(dto);
+			if(result > 0)
 			return true;
-		
+		}
 		return false;
 	}
 	
 	// 회원 삭제하기
-	public boolean memberDelete(String id) throws Exception
+	public boolean memberDelete(String id, String sid) throws Exception
 	{
-		System.out.println("MemberService's memberDelete()");
-		int result = dao.delete(id);
-		if(result > 0)
+		Session session = sessionMap.get(sid);
+		if(session != null && session.getId().equals(id))
+		{
+			int result = dao.delete(id);
+			if(result > 0)
 			return true;
-		
+		}
 		return false;
 	}
 	
@@ -97,8 +126,29 @@ public class MemberService {
 	}
 	
 	// 로그아웃
-	public String Logout(String id)
+	public boolean Logout(String id,String sid)
 	{
+		//  세션 객체를 생성해서 받아온다
+		Session session = sessionMap.get(sid);
+		// 세션아이디에 있는 아이디가 일치하는지 확인한다
+		if(session.getId().equals(id))
+		{
+			System.out.println("[ERROR] ID가 일치하지 않습니다.");
+			return false;
+		}
+		sessionMap.remove(sid);
+		return true;
+	}
+	
+	// 역활반환메서드
+	public String getRole(String sid)
+	{
+		Session session = sessionMap.get(sid);
+		if(session != null )
+		{
+			return session.getRole();
+		}
+		
 		return null;
 	}
 }

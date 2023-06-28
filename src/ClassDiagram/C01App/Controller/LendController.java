@@ -1,13 +1,20 @@
 package ClassDiagram.C01App.Controller;
 
-import java.util.Date;
 import java.util.Map;
 
-import ClassDiagram.C01App.Domain.Common.Dto.BookDto;
 import ClassDiagram.C01App.Domain.Common.Dto.RentalDto;
+import ClassDiagram.C01App.Domain.Common.Service.LendService;
 
 public class LendController {
 
+	private LendService service;
+	
+	
+	public LendController()
+	{
+		service = LendService.getInstance();
+	}
+	
 	// 1 Select , 2 Insert , 3 Update , 4 Delete
 	public void execute(int serviceNo, Map<String,Object> param) 
 	{	

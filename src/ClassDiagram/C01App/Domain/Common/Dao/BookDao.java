@@ -20,7 +20,15 @@ public class BookDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	public BookDao() {
+	private static BookDao instance;
+	
+	public static BookDao getInstance()
+	{
+		if(instance == null)
+			instance = new BookDao();
+		return instance;
+	}
+	private BookDao() {
 		id = "root";
 		pw = "1234";
 		url = "jdbc:mysql://localhost:3306/bookdb";
@@ -80,9 +88,10 @@ public class BookDao {
 					list.add(dto);
 					
 				}
-				rs.close();
-				pstmt.close();
+				
 			}
+			rs.close();
+			pstmt.close();
 		}
 		catch(Exception ex)
 		{
@@ -111,8 +120,9 @@ public class BookDao {
 				dto.setBookname(rs.getString("book_name"));
 				dto.setPublisher(rs.getString("publisher"));
 				dto.setIsbn(rs.getString("isbn"));	
-				rs.close();
+				
 			}
+			rs.close();
 			pstmt.close();
 		}
 		catch(Exception ex)

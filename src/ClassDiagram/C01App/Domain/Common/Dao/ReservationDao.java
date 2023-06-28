@@ -20,7 +20,15 @@ public class ReservationDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public ReservationDao()
+	private static ReservationDao instance;
+	public static ReservationDao getInstance()
+	{
+		if(instance == null)
+			instance = new ReservationDao();
+		return instance;
+	}
+	
+	private ReservationDao()
 	{
 		id = "root";
 		pw = "1234";
@@ -81,9 +89,9 @@ public class ReservationDao {
 				
 					
 				}
-				rs.close();
-				pstmt.close();
 			}
+			rs.close();
+			pstmt.close();
 		}
 		catch(Exception ex)
 		{

@@ -20,7 +20,16 @@ public class MemberDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public MemberDao()
+	private static MemberDao instance;
+	public static MemberDao getInstance()
+	{
+		if(instance == null)
+			instance = new MemberDao();
+		return instance;
+	}
+	
+	
+	private MemberDao()
 	{
 		id = "root";
 		pw = "1234";
@@ -79,9 +88,9 @@ public class MemberDao {
 					list.add(dto);
 					
 				}
-				rs.close();
-				pstmt.close();
 			}
+			rs.close();
+			pstmt.close();
 		}
 		catch(Exception ex)
 		{
@@ -112,9 +121,9 @@ public class MemberDao {
 					
 					
 				}
-				rs.close();
-				pstmt.close();
 			}
+			rs.close();
+			pstmt.close();
 		}
 		catch(Exception ex)
 		{
