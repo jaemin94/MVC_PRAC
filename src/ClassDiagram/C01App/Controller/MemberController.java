@@ -145,11 +145,11 @@ public class MemberController {
 			}
 			// 3 서비스 실행
 //			MemberDto dto = new MemberDto(id,pw,null,null);
-			String sid = service.Login(id, pw);
+			Map<String, Object> result = service.Login(id, pw);
 
 			// 4 View로 전달
-			Map<String,Object> result = new HashMap<String, Object>();
-			result.put("result", sid);
+			
+			
 			return result;
 		}
 		else if(serviceNo == 6)

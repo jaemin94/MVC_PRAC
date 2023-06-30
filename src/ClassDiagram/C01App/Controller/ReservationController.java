@@ -8,7 +8,7 @@ import ClassDiagram.C01App.Domain.Common.Dto.ReservationDto;
 public class ReservationController {
 
 	// 1 Select , 2 Insert , 3 Update , 4 Delete
-	public void execute(int serviceNo, Map<String,Object> param) 
+	public Map<String, Object> execute(int serviceNo, Map<String,Object> param) 
 	{	
 		if(serviceNo == 1)
 		{
@@ -29,7 +29,7 @@ public class ReservationController {
 				if(rid == null || lendid == null || id == null || isresvmessage == null)
 				{
 					System.out.println("[ERROR] Data Validation Check Error!");
-					return; // 함수종료
+					return null; // 함수종료
 				}
 			// 3. 서비스 실행
 				ReservationDto dto = new ReservationDto(rid,lendid,id,null,isresvmessage);
@@ -48,7 +48,7 @@ public class ReservationController {
 			if(rid == null || lendid == null || id == null || isresvmessage == null)
 			{
 				System.out.println("[ERROR] Data Validation Check Error!");
-				return; // 함수종료
+				return null; // 함수종료
 			}
 		// 3. 서비스 실행
 			ReservationDto dto = new ReservationDto(rid,lendid,id,null,isresvmessage);
@@ -64,12 +64,13 @@ public class ReservationController {
 			if(bookcode == null)
 			{
 				System.out.println("[ERROR] Data Validation Check Error!");
-				return; // 함수종료
+				return null; // 함수종료
 			}
 			// 3. 서비스 실행
 			// 4. View로 전달
 			System.out.println("Reservation_Delete Block!");
 		}
+		return null;
 	}
 	
 }

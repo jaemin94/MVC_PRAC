@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ClassDiagram.C01App.Controller.BookController;
 import ClassDiagram.C01App.Controller.FrontController;
+import ClassDiagram.C01App.Controller.LendController;
 import ClassDiagram.C01App.Controller.MemberController;
 import ClassDiagram.C01App.Domain.Common.Dto.BookDto;
 import ClassDiagram.C01App.Domain.Common.Dto.MemberDto;
@@ -117,4 +118,12 @@ public class ControllerTests {
 		list.stream().forEach((dto) -> {System.out.println(dto);});
 	}
 	
+	@Test
+	public void test7_LendController() throws Exception
+	{
+		LendController controller = new LendController();
+		assertNotNull(controller);
+		
+	
+	}
 }
